@@ -1,0 +1,126 @@
+﻿column,full question,answer options
+consent,A1 Are you interested in participating in this assessment?,yes/no
+serial_number ,A3 Serial Number ,number 1-13
+district,B1. District Name ,"Bagerhat, Khulna"
+upazila,B2. Upazila Name,"Koyra, Morrelganj, Paikgacha"
+ward_number,B4  Ward number,1534
+survey_phase,"B7 Select Baseline, Endline, or Post-Implementation Monitoring",baseline
+gender,C2 Gender of Respondent,male/female
+age,C3 Age of the respondent,age
+num_house_members,"C4 How many family members are there in your house? (Household means number of people living together and eating together, including you)",number
+total_male,C4.1 Total Male,number
+total_female,C4.2 Total Female  ,number
+owner_ed,C5 Houseowner Education,"Non-Literate, Primary Education , Secondary Education , Higher Secondary Education, University"
+owner_job,C6 Houseowner Occupation,"Business, Day Labour, Farmer, Fisher, Gov. Job, Others (Please Specify), Private Job, Rikshaw puller/Van Pullar, Shopkeeper"
+others_jobs,Others (Please Specify),
+collected_water_yesterday,C7 Did anyone in your household collect drinking water yesterday?,yes/no
+containers,C7.1 Which containers did household members fill and bring home yesterday? ,multiple answers- liter size
+containers_25L,C7.1 Which containers did household members fill and bring home yesterday? /25 Liter,1 / 0
+containers_20L,C7.1 Which containers did household members fill and bring home yesterday? /20 Liter,1 / 0
+containers_15L,C7.1 Which containers did household members fill and bring home yesterday? /15 Liter,1 / 0
+containers_10L,C7.1 Which containers did household members fill and bring home yesterday? /10 Liter,1 / 0
+containers_5L,C7.1 Which containers did household members fill and bring home yesterday? /5 Liter,1 / 0
+containers_Other,C7.1 Which containers did household members fill and bring home yesterday? /Other (please specify),1 / 0
+containers_Other2,Other (please specify),1 / 0
+num_25L_filled,"C7.1.a Yesterday, how many total containers of this [25 liter] size did household members fill and bring home?",number
+num_20L_filled,"C7.1.b Yesterday, how many total containers of this [20 liter] size did household members fill and bring home?",number
+num_15L_filled,"C7.1.c Yesterday, how many total containers of this [15 liter] size did household members fill and bring home?",number
+num_10L_filled,"C7.1.d Yesterday, how many total containers of this [10 liter] size did household members fill and bring home?",number
+num_5L_filled,"C7.1.e Yesterday, how many total containers of this [5 liter] size did household members fill and bring home?",number
+num_other_filled,"C7.1.f Yesterday, how many total containers of this other size did household members fill and bring home?",number
+other_containers,Please specify others. ,
+primary_source,C8 I am now going to ask you several questions about your household's primary drinking water source. Which source you consider to be your primary drinking water source ?,"Borehole with handpump, Bottled water, sachet water, Cart with small tank or drum, Mechanized borehole, Pay another person to collect, Protected dug well, Protected dug well with handpump, PSF, Public tap or standpipe; Rainwater collection; Surface water (river, dam, lake, pond, stream, canal, irrigation channels)"
+charity_water_funded,C9 Is your primary water source [the charity: water funded water point]?  ,yes/no/don't know
+why_don't_use_source,C9.1 Why does your household not use this water source?,"don’t know, I don't like the taste of the water, I don't like the taste of the water It is too far away, I don't like the taste of the water It is too far away Long lines, It is too far away, It is too far away I don't like the taste of the water, It is too far away Long lines, Other (please specify)"
+source_too_far,C9.1 Why does your household not use this water source?/It is too far away,1 / 0
+source_don't_want_pay,C9.1 Why does your household not use this water source?/I don't want to pay,1 / 0
+source_don't_like_taste,C9.1 Why does your household not use this water source?/I don't like the taste of the water,1 / 0
+source_long_lines,C9.1 Why does your household not use this water source?/Long lines,1 / 0
+source_broken,C9.1 Why does your household not use this water source?/It is broken,1 / 0
+source_no_answer,C9.1 Why does your household not use this water source?/Decline to state,1 / 0
+source_don’t_know,C9.1 Why does your household not use this water source?/don’t know,1 / 0
+source_other,C9.1 Why does your household not use this water source?/Other (please specify),1 / 0
+other_source,Other (please specify),own source
+minutes_to_source,"C10 How long do you have to walk to get to the water source? Please estimate the time that is required to walk to the water source, not the time that is required for a round trip. (In minutes)",number
+minutes_wait_time,"C11 The last time you went, how long did you have to wait to collect water from the water source? (in minutes)",number
+total_time_to_get_water,calculation-WA-5 (median val),calculation: (value to walk * 2) + wait time
+source_sometimes_dry,C12 Are there months during the year when water is not regularly available from this water source because it is dry?,yes/no/not applicable
+management_turned_off,"C13 In the past 12 months, were there times that management decided to lock or turn off the water source?",yes/no/not applicable
+were_you_told_turned_off,"C13.1 When this happened, was it communicated so your household knew when water would be available?",yes/no
+satisfied,C14 How satisfied are you with your water service?,"Neutral, Not Satisfied, Satisfied"
+why_not_satisfied,C14.1 Why are you not satisfied with your water service?,multiple answers from list of subsequent questions
+not_satisfied_long_lines,C14.1 Why are you not satisfied with your water service?/Long lines,1 / 0
+not_satisfied_expensive,C14.1 Why are you not satisfied with your water service?/It is too expensive,1 / 0
+not_satisfied_taste,C14.1 Why are you not satisfied with your water service?/Water tastes bad,1 / 0
+not_satisfied_far,C14.1 Why are you not satisfied with your water service?/It is too far away,1 / 0
+not_satisfied_broken,C14.1 Why are you not satisfied with your water service?/It is broken,1 / 0
+not_satisfied_bad_smell_color,"C14.1 Why are you not satisfied with your water service?/Water has a bad smell, color, or quality",1 / 0
+not_satisfied_other,C14.1 Why are you not satisfied with your water service?/Other (please specify),1 / 0
+other_not_satisfied,Other (please specify),Pond has insufficient water; no rain water; pond water too saline; insufficient water; hard to carry; answers in Hindi
+adults_defecate,"C15 Some people prefer to defecate in the open, some prefer to defecate in a latrine, and some prefer other places. What are the places that adult men and women in this household defecate? [Probe to ask “is there any other place” until they finish, and mark all that apply]",multiple answers from list of subsequent questions
+adults_defecate_latrine_toilet,"C15 Some people prefer to defecate in the open, some prefer to defecate in a latrine, and some prefer other places. What are the places that adult men and women in this household defecate? [Probe to ask “is there any other place” until they finish, and mark all that apply]/Latrine/toilet",1 / 0
+adults_defecate_open,"C15 Some people prefer to defecate in the open, some prefer to defecate in a latrine, and some prefer other places. What are the places that adult men and women in this household defecate? [Probe to ask “is there any other place” until they finish, and mark all that apply]/In the open/no sanitation facilities",1 / 0
+adults_defecate_water,"C15 Some people prefer to defecate in the open, some prefer to defecate in a latrine, and some prefer other places. What are the places that adult men and women in this household defecate? [Probe to ask “is there any other place” until they finish, and mark all that apply]/In water body – river or lake",1 / 0
+adults_defecate_no_answer,"C15 Some people prefer to defecate in the open, some prefer to defecate in a latrine, and some prefer other places. What are the places that adult men and women in this household defecate? [Probe to ask “is there any other place” until they finish, and mark all that apply]/Decline to state",1 / 0
+adults_defecate_don't_know,"C15 Some people prefer to defecate in the open, some prefer to defecate in a latrine, and some prefer other places. What are the places that adult men and women in this household defecate? [Probe to ask “is there any other place” until they finish, and mark all that apply]/Don't Know",1 / 0
+children_defecate,C16 Where are the places that children over 3 in this household go to defecate [Mark all that apply and probe to ask “is there any other place” until they finish],multiple answers from list of subsequent questions
+children_defecate_latrine_toilet,C16 Where are the places that children over 3 in this household go to defecate [Mark all that apply and probe to ask “is there any other place” until they finish]/Latrine/toilet,1 / 0
+children_defecate_potty,C16 Where are the places that children over 3 in this household go to defecate [Mark all that apply and probe to ask “is there any other place” until they finish]/Potty,1 / 0
+children_defecate_open,C16 Where are the places that children over 3 in this household go to defecate [Mark all that apply and probe to ask “is there any other place” until they finish]/In the open/no sanitation facilities ,1 / 0
+children_defecate_water,C16 Where are the places that children over 3 in this household go to defecate [Mark all that apply and probe to ask “is there any other place” until they finish]/In water body – river or lake ,1 / 0
+children_defecate_no_kids,"C16 Where are the places that children over 3 in this household go to defecate [Mark all that apply and probe to ask “is there any other place” until they finish]/Not applicable, no one between the ages of 3-17 lives in this household ",1 / 0
+children_defecate_d`ecline to state ,C16 Where are the places that children over 3 in this household go to defecate [Mark all that apply and probe to ask “is there any other place” until they finish]/Decline to state ,1 / 0
+children_defecate_dont_know,C16 Where are the places that children over 3 in this household go to defecate [Mark all that apply and probe to ask “is there any other place” until they finish]/Don't Know,1 / 0
+dispose_feces_under3,C17 How is feces from children under 3 in this household disposed of?,"varied answers - child uses latrine, buried, put in garbage bin, put in latrine, put on ground, decline to state, no one under 3 in household"
+dispose_feces_under3_other,Other (please specify),no answers
+see_your_toilet,C18 Can I see the toilet facility that you use?,"Does not have facility, Has a facility, but does not show, Yes, shows facility"
+type_toilet,C19.1 What type of sanitation facility is it?,"Composting toilet, Flush/pour flush, Hanging toilet/hanging latrine, Pit latrine, Ventilated improved pit latrine (VIP)"
+flush_to,C19.2 Where does it flush to?,"Piped Sewer System , Pit Latrine , Septic Tank"
+enough_water,C19.3 Is there enough water present to flush the toilet?,yes/no
+floor_condition,C19.4 What is the condition of the floor?,"Bad ( dangeraous to stand on), Good condition (no cracks or gaps), Medium (some damage, but safe to stand on)"
+walls_privacy,"C19.5  How well does this latrine superstructure (walls, door) provide privacy?","No superstructure at all, Offers full privacy (has walls and a door ), Offers little to no privacy (very poor quality), Offers some privacy (has walls but no door),"
+pit_full,C19.6  Is the pit full? (within 0.5 meters of the top),yes/no
+access_latrine,"C19.7 Is the user able to access the latrine right now (it is not locked, or they can open it)?",yes/no
+when_wash_hands,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply],multiple answers from list of subsequent questions
+when_wash_hands_after_poop ,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply]/After defecation ,1 / 0
+when_wash_hands_after_clean_baby,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply]/After cleaning or changing a baby,1 / 0
+when_wash_hands_before_cook,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply]/Before food preparation,1 / 0
+when_wash_hands_before_eat,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply]/ Before eating,1 / 0
+when_wash_hands_before_feed_child,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply]/Before feeding child,1 / 0
+when_wash_hands_before_pray,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply]/Before praying,1 / 0
+when_wash_hands_after_working_in_dirt,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply]/After working in the dirt,1 / 0
+when_wash_hands_other,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply]/Other (please specify) ,1 / 0
+when_wash_hands_decline_to_state ,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply]/Decline to state ,1 / 0
+when_wash_hands_dont_know,C20. When do you personally wash your hands?  [Do not read options to respondent. Probe to ask “Are there any other times that you wash your hands?” until they finish. Mark all that apply]/Don't Know,1 / 0
+when_wash_hands_others,Please specify others. ,blank
+show_where_wash,C21 Can you please show me where and how you usually wash your hands?,yes
+use_soap_ash_cleanser,"C21.1  Does the respondent use soap, ash, or another cleanser?","Ash, None Shown, Other cleanser or detergent, Soap"
+wash_with_water,C21.2 Does respondent use water to wash their hands?,yes
+in_WASH_group,C22. Are you a member of any WASH related group?,yes/no
+which_group,"C22.1 If yes, which group?","CBO/CSO, Water User Committee, Water User Group"
+which_group_Water_User_Group,"C22.1 If yes, which group?/Water User Group",1 / 0
+which_group_Water_User_Committee,"C22.1 If yes, which group?/Water User Committee",1 / 0
+which_group_Health_Village_Group,"C22.1 If yes, which group?/Health Village Group",0
+which_group_School_brigade_cabinet,"C22.1 If yes, which group?/School brigade cabinet",0
+which_group_CBO_CSO,"C22.1 If yes, which group?/CBO/CSO",1 / 0
+which_group_other,"C22.1 If yes, which group?/Others (specify)",0
+other_group,Others (specify),blank
+participate_WASH_meetings,"C23. In last year, did you participate in any group meetings for WASH-related consultation and decision-making processes? ",yes/no
+WASH_mtg_goal,"C23.1  If yes, what was it for?","various answers, including For pure Water, For Sanitation, Hand wash, remove the problem of insufficient drinking water, It was for heigenic life and merits of pure drinkable water, Pani, Safe Water, keep house clean, wash hands with soap, water & sanitation and 2 in Hindi"
+know_water_repairperson,C24. Do you know someone who can quickly repair [specify the water source] if required?,yes/no
+repairer_get_parts,C24.1  Is the repairer usually able to secure all the spare parts required for the repair?,"yes, no, only for minor repairs"
+small_repairs_you_pay,"C24.2 If the [specify the water source] needs only smaller repair, are you able to pay its costs?",yes/no
+big_repair_pay_or_authorities_pay,"C24.3 If the [specify the water source] needs more expensive repair, are you able to ensure it either by using your own money or by ensuring that relevant authorities conduct the repair? ",yes/no
+followup_monitoring,D1  Type of follow-up monitoring,HWISE Survey
+4weeks_worry_not_water,"D2 In the last 4 weeks, how frequently did you worry you would not have enough water for all of your household needs?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_angry_about_water,"D3 In the last 4 weeks, how frequently did you feel angry or frustrated about your water situation?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_water_interrupted,"D4 In the last 4 weeks, how frequently has your household water supply from your main water source been interrupted or limited (e.g. water pressure, less water than expected, source dried up)?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_no_laundry_water,"D5 In the last 4 weeks, how frequently has there not been enough water in the household to wash clothes?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_change_plans_because_water,"D6 In the last 4 weeks, how frequently has you or anyone in your household had to change schedules/plans due to problems with your water situation, such as problems getting or distributing water within the household? Activities that may have been interrupted include caring for others, doing household chores, agricultural work, income-generating activities, etc.","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_change_food_because_water,"D7 In the last 4 weeks, how frequently have you or anyone in your household had to change what was being eaten because there were problems with water (e.g. for washing foods, cooking, etc.)?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_not_wash_hands_because_water,"D8 In the last 4 weeks, how frequently have you or anyone in your household had to go without washing hands after dirty activities (e.g. defecating, changing diapers, cleaning animal dung) because of problems with water?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_not_bathe_because_water,"D9 In the last 4 weeks, how frequently have you or anyone in your household had to go without washing their body because of problems with water (e.g. not enough water, dirty, unsafe)?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_lack_drinking_water,"D10 In the last 4 weeks, how frequently has there not been as much water to drink as you would like for you or members of your household?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_sleep_thirsty_because_water,"D11 In the last 4 weeks, how frequently have you or anyone in your household gone to sleep thirsty because there wasn't any water to drink?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_no_water_at_all,"D12 In the last 4 weeks, how frequently have you had no useable or drinkable water whatsoever in your household?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
+4weeks_feel_ashamed_because_water,"D13 In the last 4 weeks, how frequently have problems with water caused you or anyone in your household to feel ashamed/excluded/stigmatized?","Always (More than 20 times in last 4 weeks) , Never, Often (10-20 times in last 4 weeks) , Rarely (1–2 times in the last 4 weeks) , Sometimes (3–10 times in the last 4 weeks)"
