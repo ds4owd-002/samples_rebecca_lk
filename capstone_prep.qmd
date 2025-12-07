@@ -91,23 +91,39 @@ str(processedna)
 
 processedna <- rawna |>
   #mutate(across(where(is.number), ~ na_if(.,0)))
-#time to get water
-  mutate(avg_time_get_water= mean(total_time_to_get_water, na.rm = TRUE)) |>
+#avg time to get water - all
+  mutate(avg_time_get_water= round(mean(total_time_to_get_water, na.rm = TRUE)),3) |>
+    #format(avg_time_get_water, 1) |>
     relocate(avg_time_get_water, .after=total_time_to_get_water) |>
+
 #total water per household, per capita
-  mutate(total_water=(sum((num_25L_filled*25),(num_20L_filled*20),(num_15L_filled*15),(num_10L_filled*10),(num_5L_filled*5)))) |>
+  mutate(total_water=(((num_25L_filled*25)+(num_20L_filled*20)+(num_15L_filled*15)+(num_10L_filled*10)+(num_5L_filled*5)))) |>
+      relocate(total_water, .after=other_containers) |>
                       #, na.rm=TRUE)) |>
-  
-    mutate(water_per_cap=(sum(total_water)/sum(num_hh_members))) |>
-    relocate(total_water, .after=other_containers) |>
+    mutate(water_per_cap=(total_water)/(num_hh_members)) |>
+    #format(water_per_cap, 2) |>
     relocate(water_per_cap, .after=total_water)
-  
+ 
 #break out by town
-processedna |>  
-  #group_by(upazila)
-    summarize(mean_water=mean(total_water),
-              mean_water_per_cap=mean(water_per_cap),
-              mean_time=mean(avg_time_get_water))
+#gives single value for whole df
+avg_water_time_upazila = processedna %>%
+    group_by(upazila) %>%
+    summarize(mean_time = mean(avg_time_get_water))
+
+view(avg_water_time_upazila)
+  
+str(upazila)
+
+#attempt2 - group by town
+processedna |> 
+    group_by(upazila) |>
+    summarize(mean_time = mean(avg_time_get_water))
+
+    
+      mean_water_per_cap=mean(water_per_cap))
+              ,
+      mean_water=mean(total_water),
+              
     
 #table with values
     gt() |>
