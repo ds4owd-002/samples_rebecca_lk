@@ -1,0 +1,118 @@
+---
+title: "Capstone project"
+author: "Rebecca Laes-Kushner"
+format: html
+editor: visual
+source: charity:water
+---
+
+## Description
+
+This project analyses baseline data from a water, sanitation and hygiene (WASH) project in Bangladesh run by charity:water. The survey asks about access to water, water issues, handwashing practices and defecation (pooping) practices. The long-term goal would be to compare baseline with endline data to see changes in each town due to the WASH project, such as building public latrines or boreholes and providing hygiene education.
+
+## Libraries
+
+```{r}
+install.packages("tidyverse")
+install.packages('here')
+install.packages('readxl')
+install.packages('gt')
+install.packages('dplyr')
+library(here)
+library(tidyverse)
+library(readxl)
+library(gt)
+library(dplyr)
+```
+
+## Data import
+
+```{r}
+raw <- read_excel(
+  here::here("data/raw/Final Baseline and_HwiseSatisfaction to upload raw.xlsx"),
+  na = c("", "NA", "N/A", "."))
+
+raw2 <- raw %>%
+  mutate(
+    across(where(is.integer), ~ replace(.x, is.na(.x), 0L)),
+    across(where(is.double),  ~ replace(.x, is.na(.x), 0))
+  )
+###this code doesn't work - it imports but doesn't convert NAs to 0###
+
+#tried multiple ways#
+raw2 <- raw %>%
+  mutate(across(where(is.numeric), ~ replace_na(.x, 0)))
+
+raw[is.na(raw) & is.numeric(raw)] <- 0  #  replaces all cells with NA with 0
+raw[is.na(raw)] <- 0
+
+raw2 <- raw %>%
+  mutate(
+    across(where(is.integer), ~ replace(.x, is.na(.x), 0L)),
+    across(where(is.double),  ~ replace(.x, is.na(.x), 0))
+  )
+
+#counting NAs in 1 column
+raw$containers_25L[is.na(raw$containers_25L)] <- 0
+  
+
+#  }else{
+    raw$containers_25L=raw$containers_25L
+}
+
+
+str(raw)
+```
+
+## Using pre-prepared Excel data
+
+So in order to move forward, I replaced nulls with 0 in Excel and imported "na" version (or "no na" version).
+
+```{r}
+rawna <- read_excel(
+  here::here("data/raw/Final Baseline and_HwiseSatisfaction to upload no NA.xlsx")
+)
+```
+
+## Prepare data
+
+```{r}
+
+lapply(lapply(raw, is.na), table) 
+any(is.na(raw))
+apply(raw,2,function(x) any(is.na(x)))
+#many fields have empty cells - in part because of skip logic
+
+#processed <- raw |>
+#  raw[raw == ""] <- NA - doesn't work
+#   mutate_all(raw, list(~na_if(.,""))) - doesn't work
+
+str(processedna)
+
+processedna <- rawna |>
+  #mutate(across(where(is.number), ~ na_if(.,0)))
+#time to get water
+  mutate(avg_time_get_water= mean(total_time_to_get_water, na.rm = TRUE)) |>
+    relocate(avg_time_get_water, .after=total_time_to_get_water) |>
+#total water per household, per capita
+  mutate(total_water=(sum((num_25L_filled*25),(num_20L_filled*20),(num_15L_filled*15),(num_10L_filled*10),(num_5L_filled*5)))) |>
+                      #, na.rm=TRUE)) |>
+  
+    mutate(water_per_cap=(sum(total_water)/sum(num_hh_members))) |>
+    relocate(total_water, .after=other_containers) |>
+    relocate(water_per_cap, .after=total_water)
+  
+#break out by town
+processedna |>  
+  #group_by(upazila)
+    summarize(mean_water=mean(total_water),
+              mean_water_per_cap=mean(water_per_cap),
+              mean_time=mean(avg_time_get_water))
+    
+#table with values
+    gt() |>
+      fmt_number(columns=(upazila, mean_water, mean_water_per_cap, mean_time), decimals=1)
+
+```
+
+## 

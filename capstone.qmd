@@ -1,0 +1,57 @@
+---
+title: "Capstone project"
+author: "Rebecca Laes-Kushner"
+format: html
+editor: visual
+source: charity:water
+---
+
+## Description
+
+This project analyses baseline data from a WASH project in Bangladesh run by charity:water.
+
+## Libraries
+
+```{r}
+install.packages("tidyverse")
+install.packages('here')
+install.packages('readxl')
+library(here)
+library(tidyverse)
+library(readxl)
+```
+
+## Data import
+
+```{r}
+raw <- read_excel(here::here("data/raw/Final Baseline and_HwiseSatisfaction to upload raw.xlsx"))
+
+```
+
+## Prepare data
+
+```{r}
+
+lapply(lapply(raw, is.na), table) 
+any(is.na(raw))
+apply(raw,2,function(x) any(is.na(x)))
+#many fields have empty cells - in part because of skip logic
+
+processed <- raw |>
+#  raw[raw == ""] <- NA - doesn't work
+#   mutate_all(raw, list(~na_if(.,""))) - doesn't work
+
+ 
+processed <- raw |>
+  #mutate(across(where(is.character), ~ na_if(.,"")))
+
+#total water per household, per capita
+#  mutate(L25 = containers_25L*num_25L_filled*25) |>
+#  relocate(L25,.after=num_25L_filled)
+  
+  mutate(total_water=((num_25L_filled*25)+(num_20L_filled*20)+(num_15L_filled*15)+(num_10L_filled*10)+(num_5L_filled*5))) |>
+  relocate(total_water, .after=other_containers)
+
+```
+
+## 
