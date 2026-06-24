@@ -16,12 +16,7 @@ editor: visual
 
 ## Description
 
-This project analyses baseline data from a water, sanitation and hygiene (WASH)
-project in Bangladesh run by charity:water. The survey asks about access to
-water, water issues, handwashing practices and defecation practices. The
-long-term goal is to compare baseline with endline data to see changes in each
-town due to the WASH project, such as building public latrines or boreholes and
-providing hygiene education.
+This project analyses baseline data from a water, sanitation and hygiene (WASH) project in Bangladesh run by charity:water. The survey asks about access to water, water issues, handwashing practices and defecation practices. The long-term goal is to compare baseline with endline data to see changes in each town due to the WASH project, such as building public latrines or boreholes and providing hygiene education.
 
 ## Libraries
 
@@ -34,8 +29,7 @@ library(gt)
 
 ## Data import
 
-The raw export uses several spellings for missing values, so they are all mapped
-to `NA` on import.
+The raw export uses several spellings for missing values, so they are all mapped to `NA` on import.
 
 ```{r}
 raw <- read_excel(
@@ -43,12 +37,7 @@ raw <- read_excel(
   na = c("", "NA", "N/A", "."))
 ```
 
-Where a missing value genuinely means zero (for example a container type that a
-household does not own), the `NA` can be set to `0` across the numeric columns.
-This is a modelling decision rather than a tidying step: a `0` asserts "this is
-zero", which differs from "we do not know". For the averages below the `NA`s are
-kept and handled with `na.rm = TRUE` instead, which is more honest because a `0`
-would pull a mean downward.
+Where a missing value genuinely means zero (for example a container type that a household does not own), the `NA` can be set to `0` across the numeric columns. This is a modelling decision rather than a tidying step: a `0` asserts "this is zero", which differs from "we do not know". For the averages below the `NA`s are kept and handled with `na.rm = TRUE` instead, which is more honest because a `0` would pull a mean downward.
 
 ```{r}
 raw2 <- raw |>
@@ -65,10 +54,7 @@ rawna <- read_excel(
 
 ## Prepare data
 
-Per-household variables are built first. The average time to get water is
-computed per town (`group_by(upazila)`), water volume per household is summed
-from the filled-container counts, and water per capita divides that by household
-size.
+Per-household variables are built first. The average time to get water is computed per town (`group_by(upazila)`), water volume per household is summed from the filled-container counts, and water per capita divides that by household size.
 
 ```{r}
 processedna <- rawna |>
@@ -86,8 +72,7 @@ processedna <- rawna |>
 
 ## Results by town
 
-A small number of records have no town recorded; these are dropped so the
-per-town summary is not skewed by an empty group.
+A small number of records have no town recorded; these are dropped so the per-town summary is not skewed by an empty group.
 
 ```{r}
 avg_water_time_upazila <- processedna |>
