@@ -1,0 +1,101 @@
+---
+title: "WASH baseline analysis, Bangladesh"
+author:
+  name: "Rebecca Laes-Kushner"
+date: 2025-12-07
+format:
+  html:
+    embed-resources: true
+    toc: true
+    code-fold: true
+execute:
+  warning: false
+  message: false
+editor: visual
+---
+
+## Description
+
+This project analyses baseline data from a water, sanitation and hygiene (WASH) project in Bangladesh run by charity:water. The survey asks about access to water, water issues, handwashing practices and defecation practices. The long-term goal is to compare baseline with endline data to see changes in each town due to the WASH project, such as building public latrines or boreholes and providing hygiene education.
+
+## Libraries
+
+```{r}
+library(here)
+library(tidyverse)
+library(readxl)
+library(gt)
+```
+
+## Data import
+
+The raw export uses several spellings for missing values, so they are all mapped to `NA` on import.
+
+```{r}
+raw <- read_excel(
+  here::here("data/raw/Final Baseline and_HwiseSatisfaction to upload raw.xlsx"),
+  na = c("", "NA", "N/A", "."))
+```
+
+Where a missing value genuinely means zero (for example a container type that a household does not own), the `NA` can be set to `0` across the numeric columns. This is a modelling decision rather than a tidying step: a `0` asserts "this is zero", which differs from "we do not know". For the averages below the `NA`s are kept and handled with `na.rm = TRUE` instead, which is more honest because a `0` would pull a mean downward.
+
+```{r}
+raw2 <- raw |>
+  mutate(across(where(is.numeric), ~ replace_na(.x, 0)))
+```
+
+For the analysis itself a pre-cleaned export is used.
+
+```{r}
+rawna <- read_excel(
+  here::here("data/raw/Final Baseline and_HwiseSatisfaction to upload no NA.xlsx")
+)
+```
+
+## Prepare data
+
+Per-household variables are built first. The average time to get water is computed per town (`group_by(upazila)`), water volume per household is summed from the filled-container counts, and water per capita divides that by household size.
+
+```{r}
+processedna <- rawna |>
+  group_by(upazila) |>
+  mutate(avg_time_get_water = round(mean(total_time_to_get_water, na.rm = TRUE), 1)) |>
+  ungroup() |>
+  relocate(avg_time_get_water, .after = total_time_to_get_water) |>
+  mutate(total_water = (num_25L_filled * 25) + (num_20L_filled * 20) +
+                       (num_15L_filled * 15) + (num_10L_filled * 10) +
+                       (num_5L_filled  *  5)) |>
+  relocate(total_water, .after = other_containers) |>
+  mutate(water_per_cap = total_water / num_hh_members) |>
+  relocate(water_per_cap, .after = total_water)
+```
+
+## Results by town
+
+A small number of records have no town recorded; these are dropped so the per-town summary is not skewed by an empty group.
+
+```{r}
+avg_water_time_upazila <- processedna |>
+  filter(!is.na(upazila)) |>
+  group_by(upazila) |>
+  summarize(
+    mean_time          = mean(avg_time_get_water, na.rm = TRUE),
+    mean_water         = mean(total_water,        na.rm = TRUE),
+    mean_water_per_cap = mean(water_per_cap,      na.rm = TRUE)
+  )
+```
+
+```{r}
+avg_water_time_upazila |>
+  gt() |>
+  cols_label(
+    upazila            = "Town (upazila)",
+    mean_time          = "Mean time to water (min)",
+    mean_water         = "Mean water per household (L)",
+    mean_water_per_cap = "Mean water per capita (L)"
+  ) |>
+  fmt_number(
+    columns  = c(mean_time, mean_water, mean_water_per_cap),
+    decimals = 1
+  )
+```
