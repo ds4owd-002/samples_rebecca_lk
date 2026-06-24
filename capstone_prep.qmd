@@ -13,16 +13,14 @@ This project analyses baseline data from a water, sanitation and hygiene (WASH) 
 ## Libraries
 
 ```{r}
-install.packages("tidyverse")
-install.packages('here')
-install.packages('readxl')
-install.packages('gt')
-install.packages('dplyr')
+#| message: false
+# Install these once in the Console (not here), then just load them:
+# install.packages(c("tidyverse", "here", "readxl", "gt"))
+# Note: dplyr and readr come with tidyverse, so loading tidyverse is enough.
 library(here)
 library(tidyverse)
 library(readxl)
 library(gt)
-library(dplyr)
 ```
 
 ## Data import
@@ -32,36 +30,21 @@ raw <- read_excel(
   here::here("data/raw/Final Baseline and_HwiseSatisfaction to upload raw.xlsx"),
   na = c("", "NA", "N/A", "."))
 
-raw2 <- raw %>%
-  mutate(
-    across(where(is.integer), ~ replace(.x, is.na(.x), 0L)),
-    across(where(is.double),  ~ replace(.x, is.na(.x), 0))
-  )
-###this code doesn't work - it imports but doesn't convert NAs to 0###
-
-#tried multiple ways#
-raw2 <- raw %>%
+# Replace NA with 0 in every numeric column. `across(where(is.numeric), ...)`
+# picks the numeric columns; `replace_na(.x, 0)` swaps the NAs for 0. This is
+# the line you already had, and it does work, so we keep just this one.
+raw2 <- raw |>
   mutate(across(where(is.numeric), ~ replace_na(.x, 0)))
 
-raw[is.na(raw) & is.numeric(raw)] <- 0  #  replaces all cells with NA with 0
-raw[is.na(raw)] <- 0
+# A caution worth keeping in mind: turning NA into 0 is a real decision, not
+# just a fix. 0 means "this value is zero", which is different from "we don't
+# know". For an average like avg_time_get_water below, leaving the NAs in and
+# using mean(..., na.rm = TRUE) is usually more honest than first making them 0,
+# because a 0 would pull the average down. So apply this only to columns where 0
+# is genuinely the right value (for example a count of containers that were
+# simply not owned).
 
-raw2 <- raw %>%
-  mutate(
-    across(where(is.integer), ~ replace(.x, is.na(.x), 0L)),
-    across(where(is.double),  ~ replace(.x, is.na(.x), 0))
-  )
-
-#counting NAs in 1 column
-raw$containers_25L[is.na(raw$containers_25L)] <- 0
-  
-
-#  }else{
-    raw$containers_25L=raw$containers_25L
-}
-
-
-str(raw)
+str(raw2)
 ```
 
 ## Using pre-prepared Excel data
@@ -77,58 +60,60 @@ rawna <- read_excel(
 ## Prepare data
 
 ```{r}
-
-lapply(lapply(raw, is.na), table) 
-any(is.na(raw))
-apply(raw,2,function(x) any(is.na(x)))
-#many fields have empty cells - in part because of skip logic
-
-#processed <- raw |>
-#  raw[raw == ""] <- NA - doesn't work
-#   mutate_all(raw, list(~na_if(.,""))) - doesn't work
-
-str(processedna)
-
+# Build the per-household (per-row) variables.
+#
+# avg_time_get_water: you want the average time PER TOWN, so we group_by(upazila)
+# first; then mean() inside mutate() gives each row its town's average. round(x, 1)
+# gives one decimal (your earlier round(...),3) put the 3 outside round(), so it
+# never reached the function). ungroup() at the end clears the grouping so the
+# later steps are not still grouped by accident.
 processedna <- rawna |>
-  #mutate(across(where(is.number), ~ na_if(.,0)))
-#avg time to get water - all
-  mutate(avg_time_get_water= round(mean(total_time_to_get_water, na.rm = TRUE)),3) |>
-    #format(avg_time_get_water, 1) |>
-    relocate(avg_time_get_water, .after=total_time_to_get_water) |>
+  group_by(upazila) |>
+  mutate(avg_time_get_water = round(mean(total_time_to_get_water, na.rm = TRUE), 1)) |>
+  ungroup() |>
+  relocate(avg_time_get_water, .after = total_time_to_get_water) |>
+  # total water per household (litres), then per capita
+  mutate(total_water = (num_25L_filled * 25) + (num_20L_filled * 20) +
+                       (num_15L_filled * 15) + (num_10L_filled * 10) +
+                       (num_5L_filled  *  5)) |>
+  relocate(total_water, .after = other_containers) |>
+  mutate(water_per_cap = total_water / num_hh_members) |>
+  relocate(water_per_cap, .after = total_water)
+```
 
-#total water per household, per capita
-  mutate(total_water=(((num_25L_filled*25)+(num_20L_filled*20)+(num_15L_filled*15)+(num_10L_filled*10)+(num_5L_filled*5)))) |>
-      relocate(total_water, .after=other_containers) |>
-                      #, na.rm=TRUE)) |>
-    mutate(water_per_cap=(total_water)/(num_hh_members)) |>
-    #format(water_per_cap, 2) |>
-    relocate(water_per_cap, .after=total_water)
- 
-#break out by town
-#gives single value for whole df
-avg_water_time_upazila = processedna %>%
-    group_by(upazila) %>%
-    summarize(mean_time = mean(avg_time_get_water))
+Now summarise by town. The key fix here is the pipe (`|>`) after every line of
+the chain except the last; a missing pipe is what produced the
+`argument ".data" is missing` error before.
 
-view(avg_water_time_upazila)
-  
-str(upazila)
+```{r}
+avg_water_time_upazila <- processedna |>
+  group_by(upazila) |>
+  summarize(
+    mean_time          = mean(avg_time_get_water, na.rm = TRUE),
+    mean_water         = mean(total_water,        na.rm = TRUE),
+    mean_water_per_cap = mean(water_per_cap,      na.rm = TRUE)
+  )
 
-#attempt2 - group by town
-processedna |> 
-    group_by(upazila) |>
-    summarize(mean_time = mean(avg_time_get_water))
+avg_water_time_upazila
+```
 
-    
-      mean_water_per_cap=mean(water_per_cap))
-              ,
-      mean_water=mean(total_water),
-              
-    
-#table with values
-    gt() |>
-      fmt_number(columns=(upazila, mean_water, mean_water_per_cap, mean_time), decimals=1)
+To inspect a single column, reach into the data frame with `$` (writing
+`str(upazila)` on its own fails because `upazila` is a column, not a standalone
+object):
 
+```{r}
+str(processedna$upazila)
+```
+
+A formatted summary table with `gt`:
+
+```{r}
+avg_water_time_upazila |>
+  gt() |>
+  fmt_number(
+    columns  = c(mean_time, mean_water, mean_water_per_cap),
+    decimals = 1
+  )
 ```
 
 ## 
